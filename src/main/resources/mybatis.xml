@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 外部可配置且可动态替换的属性，可在config.properties中配置，也可在property节点中配置 -->
+	<!-- configuration中的节点是有顺序的，顺序不对会报错：元素类型为 "configuration" 的内容必须匹配  xxxxxx -->
+	<properties resource="config.properties">
+		<!--
+		<property name="username" value="dev_user"/>
+  		<property name="password" value="F2Fa3!33TYyg"/>
+		-->
+	</properties>
+	<typeAliases>
+	  <typeAlias alias="UserVo" type="com.yeah.mybatis.dto.UserVo"/>
+	</typeAliases>
+    <!-- 和spring整合后 environments配置将废除-->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理，事务控制由mybatis-->
+            <transactionManager type="JDBC" />
+            <!-- 数据库连接池,由mybatis管理-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${db.url}" />
+                <property name="username" value="${db.username}" />
+                <property name="password" value="${db.password}" />
+            </dataSource>
+        </environment>
+    </environments>
+	<mappers>
+	    <mapper resource="com/yeah/mybatis/mapper/UserMapper.xml"/>
+	</mappers>
+</configuration>
